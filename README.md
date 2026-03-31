@@ -1,7 +1,12 @@
+Done bro — **final polished README (copy-paste ready)** 👇🔥
+
+---
+
+```markdown
 # 🚗 Vehicle Finder
 
 <p align="center">
-  <b>Find your perfect ride in seconds.</b><br/>
+  <b>Stop searching. Start matching your perfect ride.</b><br/>
   Smart recommendations for bikes & cars 🚀
 </p>
 
@@ -48,7 +53,90 @@ No more confusion — just **personalized vehicle recommendations**.
 
 ---
 
-## 📸 Screenshots
+## 🌐 Live Demo
 
-> 🚧 Add screenshots here  
-Example:
+👉 Coming soon...
+
+
+---
+
+## ⚙️ Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/akash-rautela/vehicle-finder.git
+cd vehicle-finder
+````
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📦 Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 🧠 How it Works
+
+1. User enters preferences (budget, type, usage)
+2. System processes inputs
+3. Best matching vehicles are recommended
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repo
+2. Create a new branch
+3. Make changes
+4. Submit a PR 🚀
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**
+
+---
+
+## 💡 Author
+
+**Akash Rautela**
+
+* GitHub: [https://github.com/akash-rautela](https://github.com/akash-rautela)
+* LinkedIn: [https://www.linkedin.com/in/sahaj-kumar-797024311/](https://www.linkedin.com/in/sahaj-kumar-797024311/)
+
+---
+
+## ⭐ Support
+
+If you like this project:
+
+👉 Give it a **star ⭐**
+👉 Share with friends
+
+---
+
+<p align="center">
+  Made with ❤️ by Akash
+</p>
+```
+
+---
