@@ -50,9 +50,8 @@ No more confusion — just **personalized vehicle recommendations**.
 
 ## 📸 Screenshots
 
-import home from "../assets/home.png";
+![Home](./screenshots/home.png)
 
-<img src={home} />
 ---
 
 ## 🌐 Live Demo
