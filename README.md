@@ -1,4 +1,3 @@
-```markdown
 # 🚗 Vehicle Finder
 
 <p align="center">
@@ -63,7 +62,6 @@ Clone the repository:
 ```bash
 git clone https://github.com/akash-rautela/vehicle-finder.git
 cd vehicle-finder
-````
 
 Install dependencies:
 
