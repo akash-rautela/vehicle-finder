@@ -48,9 +48,16 @@ No more confusion — just **personalized vehicle recommendations**.
 
 ---
 
+## 📸 Screenshots
+
+import home from "../assets/home.png";
+
+<img src={home} />
+---
+
 ## 🌐 Live Demo
 
-👉 Coming soon...
+👉 https://your-vercel-link.vercel.app
 
 
 ---
