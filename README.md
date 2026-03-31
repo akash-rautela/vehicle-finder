@@ -1,7 +1,3 @@
-Done bro — **final polished README (copy-paste ready)** 👇🔥
-
----
-
 ```markdown
 # 🚗 Vehicle Finder
 
