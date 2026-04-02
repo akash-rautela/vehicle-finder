@@ -90,8 +90,8 @@ const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) =>
       {/* SPECS */}
       <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground mb-4">
         <span>Power: {vehicle.powerBHP ?? "-"} BHP</span>
-        <span>Torque: {vehicle.torqueNM ?? "-"} Nm</span>
-        <span>Weight: {vehicle.weightKG ?? "-"} kg</span>
+        <span>Torque: {vehicle.mileage ?? "-"} Nm</span>
+        <span>Weight: {vehicle.engineCC ?? "-"} kg</span>
         <span>GC: {vehicle.groundClearanceMM ?? "-"} mm</span>
       </div>
 
