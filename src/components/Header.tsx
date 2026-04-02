@@ -36,7 +36,7 @@ const Header = () => {
         <nav className="hidden items-center gap-8 md:flex">
           <NavItem href="/" label="Home" />
           <NavItem href="/browse" label="Browse" />
-          {/* <NavItem href="#" label="Compare" /> */}
+          <NavItem href="/compare" label="Compare" />
           <NavItem href="/about" label="About" />
           <NavItem href="/contact" label="Contact" />
           <ThemeToggle />
@@ -61,7 +61,7 @@ const Header = () => {
             <div className="flex flex-col gap-1 px-4 py-3">
               <NavItem href="/" label="Home" onClick={() => setMobileOpen(false)} />
               <NavItem href="/browse" label="Browse" onClick={() => setMobileOpen(false)} />
-              {/* <NavItem href="#" label="Compare" onClick={() => setMobileOpen(false)} /> */}
+              <NavItem href="/compare" label="Compare" onClick={() => setMobileOpen(false)} />
               <NavItem href="/about" label="About" onClick={() => setMobileOpen(false)} />
               <NavItem href="/contact" label="Contact" onClick={() => setMobileOpen(false)} />
               <div className="pt-2"><ThemeToggle /></div>

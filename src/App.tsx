@@ -10,6 +10,7 @@ import MouseChaseEffect from "@/components/MouseChaseEffect";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Browse from "./pages/Browse.tsx";
+import Compare from "./pages/Compare.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -29,6 +30,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/browse" element={<Browse />} />
+                <Route path="/compare" element={<Compare />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />

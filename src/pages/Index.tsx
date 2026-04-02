@@ -7,7 +7,34 @@ import { vehicles, Vehicle } from "@/data/vehicles";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, RotateCcw, Car } from "lucide-react";
 
-const steps = [
+const budgetOptions2W = [
+  { value: "0-100000", label: "Under ₹1 Lakh", icon: "💰" },
+  { value: "100000-300000", label: "₹1L – ₹3L", icon: "💵" },
+  { value: "300000-1000000", label: "₹3L – ₹10L", icon: "💎" },
+  { value: "1000000-50000000", label: "₹10L+", icon: "👑" },
+  { value: "custom", label: "Custom Budget", icon: "✏️" },
+];
+
+const budgetOptions4W = [
+  { value: "300000-1000000", label: "₹3L – ₹10L", icon: "💎" },
+  { value: "1000000-50000000", label: "₹10L+", icon: "👑" },
+  { value: "custom", label: "Custom Budget", icon: "✏️" },
+];
+
+const engineOptions2W = [
+  { value: "Petrol", label: "Petrol", icon: "⛽" },
+  { value: "Electric", label: "Electric", icon: "⚡" },
+  { value: "CNG", label: "CNG / Hybrid", icon: "🌿" },
+];
+
+const engineOptions4W = [
+  { value: "Petrol", label: "Petrol", icon: "⛽" },
+  { value: "Electric", label: "Electric", icon: "⚡" },
+  { value: "Diesel", label: "Diesel", icon: "🛢️" },
+  { value: "CNG", label: "CNG / Hybrid", icon: "🌿" },
+];
+
+const getSteps = (vehicleType: string) => [
   {
     question: "What type of vehicle are you looking for?",
     subtitle: "Choose between two-wheelers and four-wheelers",
@@ -21,12 +48,7 @@ const steps = [
     question: "What's your budget?",
     subtitle: "Select a price range that works for you",
     key: "budget" as const,
-    options: [
-      { value: "0-100000", label: "Under ₹1 Lakh", icon: "💰" },
-      { value: "100000-300000", label: "₹1L – ₹3L", icon: "💵" },
-      { value: "300000-1000000", label: "₹3L – ₹10L", icon: "💎" },
-      { value: "1000000-50000000", label: "₹10L+", icon: "👑" },
-    ],
+    options: vehicleType === "4W" ? budgetOptions4W : budgetOptions2W,
   },
   {
     question: "What will you use it for?",
@@ -44,12 +66,7 @@ const steps = [
     question: "Preferred engine / fuel type?",
     subtitle: "Pick the powertrain that suits your needs",
     key: "engine" as const,
-    options: [
-      { value: "Petrol", label: "Petrol", icon: "⛽" },
-      { value: "Electric", label: "Electric", icon: "⚡" },
-      { value: "Diesel", label: "Diesel", icon: "🛢️" },
-      { value: "CNG", label: "CNG / Hybrid", icon: "🌿" },
-    ],
+    options: vehicleType === "2W" ? engineOptions2W : engineOptions4W,
   },
 ];
 
@@ -63,7 +80,9 @@ const Index = () => {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [usageAnswers, setUsageAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [customBudget, setCustomBudget] = useState("");
 
+  const steps = useMemo(() => getSteps(answers.type || "2W"), [answers.type]);
   const handleSelect = (key: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
   };
@@ -76,7 +95,11 @@ const Index = () => {
 
   const canProceed =
     step < steps.length &&
-    (steps[step].multi ? usageAnswers.length > 0 : !!answers[steps[step].key]);
+    (steps[step].multi
+      ? usageAnswers.length > 0
+      : steps[step].key === "budget" && answers.budget === "custom"
+        ? customBudget.trim() !== "" && Number(customBudget) > 0
+        : !!answers[steps[step].key]);
 
   const next = () => {
     if (step < steps.length - 1) setStep((s) => s + 1);
@@ -92,12 +115,20 @@ const Index = () => {
     setStep(0);
     setAnswers({});
     setUsageAnswers([]);
+    setCustomBudget("");
     setShowResults(false);
   };
 
   const results = useMemo(() => {
     if (!showResults) return [];
-    const [minB, maxB] = parseBudget(answers.budget || "0-50000000");
+    let minB: number, maxB: number;
+    if (answers.budget === "custom" && customBudget) {
+      const val = Number(customBudget) * 100000; // convert lakhs to INR
+      minB = Math.max(0, val * 0.8);
+      maxB = val * 1.2;
+    } else {
+      [minB, maxB] = parseBudget(answers.budget || "0-50000000");
+    }
     return vehicles.filter((v) => {
       if (v.vehicleType !== answers.type) return false;
       if (v.price < minB || v.price > maxB) return false;
@@ -108,7 +139,7 @@ const Index = () => {
       }
       return true;
     });
-  }, [showResults, answers, usageAnswers]);
+  }, [showResults, answers, usageAnswers, customBudget]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
@@ -141,7 +172,37 @@ const Index = () => {
               selectedMulti={usageAnswers}
               onSelectMulti={handleUsageToggle}
             />
-          </AnimatePresence>
+           </AnimatePresence>
+          {steps[step].key === "budget" && answers.budget === "custom" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-full max-w-2xl mx-auto mt-6"
+            >
+              <div className="glass-card p-6">
+                <label className="block text-foreground font-semibold mb-2">
+                  Enter your budget (in Lakhs ₹)
+                </label>
+                <p className="text-sm text-muted-foreground mb-3">
+                  We'll show vehicles within ±20% of your budget
+                </p>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.5"
+                  value={customBudget}
+                  onChange={(e) => setCustomBudget(e.target.value)}
+                  placeholder="e.g. 50"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                />
+                {customBudget && Number(customBudget) > 0 && (
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Showing vehicles from ₹{(Number(customBudget) * 0.8).toFixed(1)}L to ₹{(Number(customBudget) * 1.2).toFixed(1)}L
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          )}
           <div className="flex gap-4 mt-10">
             {step > 0 && (
               <Button variant="outline" onClick={prev} className="gap-2">

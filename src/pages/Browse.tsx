@@ -7,7 +7,12 @@ const Browse = () => {
   const [selected, setSelected] = useState<"2W" | "4W" | null>(null);
 
   const filtered = useMemo(
-    () => (selected ? vehicles.filter((v) => v.vehicleType === selected) : []),
+    () =>
+      selected
+        ? vehicles
+            .filter((v) => v.vehicleType === selected)
+            .sort((a, b) => a.price - b.price)
+        : [],
     [selected]
   );
 

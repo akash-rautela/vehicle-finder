@@ -1,14 +1,11 @@
 import { motion } from "framer-motion";
 import { Vehicle } from "@/data/vehicles";
 import { Badge } from "@/components/ui/badge";
+import { ExternalLink } from "lucide-react";
 
 const formatPrice = (price: number) => {
   if (price >= 100000) return `₹${(price / 100000).toFixed(2)}L`;
   return `₹${price.toLocaleString("en-IN")}`;
-};
-
-const usageIcons: Record<string, string> = {
-  daily: "🏙️", sports: "🏁", cruiser: "🛣️", adventure: "⛰️", cruise: "🛣️",
 };
 
 const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) => (
@@ -42,12 +39,21 @@ const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) =>
         </span>
       )}
     </div>
-    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground mb-4">
       <span>Power: {vehicle.powerBHP} BHP</span>
       <span>Torque: {vehicle.torqueNM} Nm</span>
       <span>Weight: {vehicle.weightKG} kg</span>
       <span>GC: {vehicle.groundClearanceMM} mm</span>
     </div>
+    <a
+      href={vehicle.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+    >
+      <ExternalLink className="h-4 w-4" />
+      View Details
+    </a>
   </motion.div>
 );
 
