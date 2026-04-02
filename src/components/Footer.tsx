@@ -22,7 +22,7 @@ const Footer = () => (
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">Quick Links</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Browse Vehicles</a></li>
+            <li><a href="/browse" className="hover:text-primary transition-colors">Browse Vehicles</a></li>
             {/* <li><a href="#" className="hover:text-primary transition-colors">Compare</a></li> */}
           </ul>
         </div>
@@ -31,8 +31,8 @@ const Footer = () => (
         <div>
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">Categories</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary transition-colors">Two Wheelers</a></li>
-            <li><a href="#" className="hover:text-primary transition-colors">Four Wheelers</a></li>
+            <li><a href="/browse" className="hover:text-primary transition-colors">Two Wheelers</a></li>
+            <li><a href="/browse" className="hover:text-primary transition-colors">Four Wheelers</a></li>
             {/* <li><a href="#" className="hover:text-primary transition-colors">Electric Vehicles</a></li> */}
           </ul>
         </div>
