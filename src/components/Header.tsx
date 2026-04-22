@@ -29,7 +29,7 @@ const Header = () => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/60">
+    <header className="nav-glass">
       
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
         
@@ -91,10 +91,10 @@ const Header = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden border-t border-border/40 md:hidden backdrop-blur-xl bg-background/80"
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-border/10 md:hidden bg-background/95 backdrop-blur-2xl"
           >
-            <div className="flex flex-col gap-2 px-4 py-4">
+            <div className="flex flex-col items-end gap-6 px-8 py-12 text-right">
 
               {["Home", "Browse", "Compare", "About", "Contact"].map((item, i) => (
                 <motion.div
@@ -111,7 +111,7 @@ const Header = () => {
                 </motion.div>
               ))}
 
-              <div className="pt-3 mt-2 border-t border-border/30 flex items-center justify-between">
+              <div className="pt-6 mt-4 border-t border-border/10 flex flex-col items-end gap-6 w-full">
                 <ThemeToggle />
                 
                 {user ? (

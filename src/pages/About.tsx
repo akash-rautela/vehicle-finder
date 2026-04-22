@@ -22,111 +22,96 @@ const team = [
 
 const About = () => {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 md:px-8">
-      {/* Hero */}
-      <motion.div
-        className="mb-16 text-center"
-        variants={fadeUp}
-        initial="initial"
-        animate="animate"
-        transition={{ duration: 0.6 }}
-      >
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-          <Car className="h-8 w-8 text-primary" />
-        </div>
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
-          About <span className="text-primary">VehicleFinder</span>
-        </h1>
-        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          We help you discover the ideal two-wheeler by matching your budget, riding style, and preferences — all in a few clicks.
-        </p>
-      </motion.div>
+    <div className="bg-mesh min-h-screen pt-20">
+      <div className="mx-auto max-w-5xl px-6 py-16 md:px-8">
+        {/* Hero */}
+        <motion.div
+          className="mb-24 text-center"
+          variants={fadeUp}
+          initial="initial"
+          animate="animate"
+          transition={{ duration: 0.8 }}
+        >
+          <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-[2rem] bg-primary/10 shadow-2xl shadow-primary/10 border border-primary/20">
+            <Car className="h-10 w-10 text-primary" />
+          </div>
+          <h1 className="mb-6 text-5xl md:text-7xl font-black tracking-tight text-foreground">
+            About <span className="text-primary italic">MotoMatch</span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-lg md:text-xl text-muted-foreground font-medium opacity-70">
+            Defining the future of vehicle discovery through intelligence, simplicity, and premium design.
+          </p>
+        </motion.div>
 
-      {/* Mission */}
-      <motion.section
-        className="mb-16"
-        variants={fadeUp}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <Card className="glass-card border-border/40">
-          <CardContent className="p-8 text-center md:p-12">
-            <h2 className="mb-4 text-2xl font-bold text-foreground">Our Mission</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground leading-relaxed">
-              Buying a vehicle shouldn't be overwhelming. VehicleFinder was born from the frustration of comparing dozens of specs across multiple websites. We built a streamlined tool that asks the right questions and delivers tailored results — so you spend less time searching and more time riding.
+        {/* Mission */}
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="glass-card p-12 md:p-20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -z-10" />
+            <h2 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-6 text-center">THE MISSION</h2>
+            <h3 className="mb-8 text-3xl md:text-4xl font-black text-foreground text-center leading-tight">Eliminating the complexity of vehicle search.</h3>
+            <p className="mx-auto max-w-3xl text-muted-foreground leading-relaxed font-medium text-center text-lg opacity-80">
+              Purchasing a vehicle should be an exhilarating journey, not a data-mining operation. MotoMatch was engineered to solve the paralysis caused by specification overload. We've simplified the process into a conversation — delivering personalized matches that truly align with your lifestyle.
             </p>
-          </CardContent>
-        </Card>
-      </motion.section>
+          </div>
+        </motion.section>
 
-      {/* Values */}
-      <motion.section
-        className="mb-16"
-        variants={fadeUp}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-      >
-        <h2 className="mb-8 text-center text-2xl font-bold text-foreground">What We Stand For</h2>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {values.map((v, i) => (
-            <motion.div
-              key={v.title}
-              variants={fadeUp}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 * i }}
-            >
-              <Card className="glass-card h-full border-border/40 transition-shadow hover:shadow-lg">
-                <CardContent className="flex gap-4 p-6">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                    <v.icon className="h-5 w-5 text-primary" />
+        {/* Values */}
+        <motion.section className="mb-24">
+          <h2 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-12 text-center">CORE PRINCIPLES</h2>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {values.map((v, i) => (
+              <motion.div
+                key={v.title}
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 * i }}
+                className="glass-card p-8 group"
+              >
+                <div className="flex gap-6">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-secondary/30 border border-border/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-500">
+                    <v.icon className="h-6 w-6 text-foreground group-hover:text-primary transition-colors" />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold text-foreground">{v.title}</h3>
-                    <p className="text-sm text-muted-foreground">{v.desc}</p>
+                    <h3 className="mb-2 text-xl font-black text-foreground group-hover:text-primary transition-colors">{v.title}</h3>
+                    <p className="text-sm text-muted-foreground font-medium leading-relaxed opacity-70">{v.desc}</p>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-      {/* Team */}
-      <motion.section
-        variants={fadeUp}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <h2 className="mb-8 text-center text-2xl font-bold text-foreground">Meet the Team</h2>
-        <div className="grid gap-6 sm:grid-cols-3">
-          {team.map((t, i) => (
-            <motion.div
-              key={t.name}
-              variants={fadeUp}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 * i }}
-            >
-              <Card className="glass-card border-border/40 text-center transition-shadow hover:shadow-lg">
-                <CardContent className="p-6">
-                  <span className="mb-3 block text-4xl">{t.emoji}</span>
-                  <h3 className="font-semibold text-foreground">{t.name}</h3>
-                  <p className="text-sm text-muted-foreground">{t.role}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+        {/* Team */}
+        <motion.section className="pb-24">
+          <h2 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-12 text-center">THE ARCHITECTS</h2>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {team.map((t, i) => (
+              <motion.div
+                key={t.name}
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 * i }}
+                className="glass-card p-10 text-center group"
+              >
+                <div className="text-5xl mb-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-110">{t.emoji}</div>
+                <h3 className="text-lg font-black text-foreground mb-1 group-hover:text-primary transition-colors">{t.name}</h3>
+                <p className="text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.2em]">{t.role}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      </div>
     </div>
   );
 };

@@ -39,43 +39,64 @@ const QuestionnaireStep = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.4 }}
-      className="w-full max-w-2xl mx-auto"
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-4xl mx-auto"
     >
-      <h2 className="text-3xl font-bold mb-2 text-foreground">
-        {question}
-      </h2>
-
-      <p className="text-muted-foreground mb-8">
-        {subtitle}
-      </p>
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-5xl font-black mb-4 text-foreground tracking-tight">
+          {question}
+        </h2>
+        <p className="text-muted-foreground font-medium text-lg opacity-60">
+          {subtitle}
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {options.map((opt) => (
+        {options.map((opt, i) => (
           <motion.button
             key={opt.value}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => handleClick(opt.value)}
             aria-pressed={isSelected(opt.value)}
-            className={`glass-card p-6 text-left transition-all duration-200 cursor-pointer relative ${
+            className={`group relative glass-card p-8 text-left transition-all duration-300 cursor-pointer overflow-hidden ${
               isSelected(opt.value)
-                ? "bg-primary/15 border-primary border-2 shadow-lg shadow-primary/30"
-                : "hover:border-muted-foreground/30"
+                ? "bg-primary/5 border-primary/40 ring-1 ring-primary/20 shadow-2xl shadow-primary/5"
+                : "hover:bg-card/60"
             }`}
           >
-            {isSelected(opt.value) && (
-              <div className="absolute top-3 right-3 bg-primary rounded-full p-1.5">
-                <Check className="w-4 h-4 text-primary-foreground" />
+            {/* SELECTION INDICATOR */}
+            <div className={`absolute top-6 right-6 w-6 h-6 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
+              isSelected(opt.value) 
+              ? "bg-primary border-primary scale-110" 
+              : "border-muted-foreground/20 group-hover:border-primary/40"
+            }`}>
+              {isSelected(opt.value) && <Check className="w-3.5 h-3.5 text-primary-foreground stroke-[4px]" />}
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                {opt.icon}
+              </span>
+              <div>
+                <span className={`block text-xl font-black tracking-tight transition-colors ${
+                  isSelected(opt.value) ? "text-primary" : "text-foreground/90"
+                }`}>
+                  {opt.label}
+                </span>
+                <p className="text-[10px] uppercase tracking-widest font-black text-muted-foreground/40 mt-1">
+                  Select this option
+                </p>
               </div>
-            )}
-            <span className="text-3xl block mb-3">{opt.icon}</span>
-            <span className="text-foreground font-semibold text-lg">
-              {opt.label}
-            </span>
+            </div>
+            
+            {/* DECORATIVE BACKGROUND GRADIENT */}
+            <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none ${isSelected(opt.value) ? 'opacity-100' : ''}`} />
           </motion.button>
         ))}
       </div>
