@@ -21,7 +21,7 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     return {
       folder: 'motomatch',
-      allowed_formats: ['jpg', 'png', 'jpeg'],
+      allowedFormats: ['jpg', 'png', 'jpeg'],
       public_id: `${file.fieldname}-${Date.now()}`,
     };
   },
@@ -29,12 +29,19 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-router.post('/', protect, admin, upload.single('image'), (req: Request, res: Response) => {
+router.post('/', protect, (req: Request, res: Response, next: any) => {
+  upload.single('image')(req, res, (err: any) => {
+    if (err) {
+      console.error('Multer/Cloudinary Error:', err);
+      return res.status(400).json({ message: 'Image upload failed', error: err.message });
+    }
+    next();
+  });
+}, (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(400).send({ message: 'No file uploaded' });
   }
   
-  // The 'path' in Cloudinary storage is the actual secure URL
   res.send({
     message: 'Image uploaded to Cloudinary',
     image: (req.file as any).path, 

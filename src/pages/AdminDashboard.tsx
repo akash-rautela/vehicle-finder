@@ -67,13 +67,7 @@ const AdminDashboard = () => {
     setUploading(true);
 
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-
-      const { data } = await api.post('/upload', formData, config);
+      const { data } = await api.post('/upload', formData);
       setImage(data.image);
       setUploading(false);
       toast.success('Image uploaded');
