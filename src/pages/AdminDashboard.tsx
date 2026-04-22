@@ -95,7 +95,8 @@ const AdminDashboard = () => {
     // Convert numeric fields
     const numericFields = ['price', 'engineCC', 'mileage', 'powerBHP', 'torqueNM', 'weightKG', 'seatingCapacity', 'groundClearanceMM'];
     numericFields.forEach(field => {
-      data[field] = Number(data[field]);
+      const val = data[field];
+      data[field] = (val !== undefined && val !== '') ? Number(val) : 0;
     });
 
     if (editingVehicle) {
@@ -122,7 +123,7 @@ const AdminDashboard = () => {
                 <Plus className="mr-2 h-4 w-4" /> Add Vehicle
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl glass-card border-primary/20 text-foreground p-8">
+            <DialogContent className="max-w-2xl glass-dialog border-primary/20 text-foreground p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-black">{editingVehicle ? 'Edit Vehicle' : 'Add New Vehicle'}</DialogTitle>
               </DialogHeader>
@@ -170,6 +171,30 @@ const AdminDashboard = () => {
                   <Input name="engineCC" type="number" step="0.1" defaultValue={editingVehicle?.engineCC} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
                 </div>
                 <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Mileage (kmpl)</Label>
+                  <Input name="mileage" type="number" step="0.1" defaultValue={editingVehicle?.mileage} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Power (BHP)</Label>
+                  <Input name="powerBHP" type="number" step="0.1" defaultValue={editingVehicle?.powerBHP} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Torque (NM)</Label>
+                  <Input name="torqueNM" type="number" step="0.1" defaultValue={editingVehicle?.torqueNM} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Weight (KG)</Label>
+                  <Input name="weightKG" type="number" step="0.1" defaultValue={editingVehicle?.weightKG} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Seating Capacity</Label>
+                  <Input name="seatingCapacity" type="number" defaultValue={editingVehicle?.seatingCapacity} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Ground Clearance (MM)</Label>
+                  <Input name="groundClearanceMM" type="number" defaultValue={editingVehicle?.groundClearanceMM} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                </div>
+                <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Usage Type</Label>
                   <Select name="usageType" defaultValue={editingVehicle?.usageType || "daily"}>
                     <SelectTrigger className="bg-secondary/30 border-border/50 h-11 rounded-xl">
@@ -184,8 +209,8 @@ const AdminDashboard = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Link</Label>
-                  <Input name="link" defaultValue={editingVehicle?.link} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" />
+                  <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">External Link</Label>
+                  <Input name="link" defaultValue={editingVehicle?.link} required className="bg-secondary/30 border-border/50 h-11 rounded-xl" placeholder="https://..." />
                 </div>
                  <div className="space-y-2 col-span-2">
                   <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Upload Image</Label>
