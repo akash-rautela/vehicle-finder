@@ -1,7 +1,9 @@
-import { Car, Menu, X } from "lucide-react";
+import { Car, Menu, X, User as UserIcon, LayoutDashboard, LogOut } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "./ui/button";
 
 interface NavItemProps {
   href: string;
@@ -24,6 +26,7 @@ const NavItem = ({ href, label, onClick }: NavItemProps) => (
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/60">
@@ -46,8 +49,25 @@ const Header = () => {
           <NavItem href="/about" label="About" />
           <NavItem href="/contact" label="Contact" />
 
-          <div className="ml-2">
+          <div className="flex items-center gap-4 pl-4 border-l border-border/50">
             <ThemeToggle />
+            
+            {user ? (
+              <div className="flex items-center gap-3">
+                <a href="/admin" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </a>
+                <button onClick={logout} className="text-sm font-medium text-destructive hover:text-destructive/80 flex items-center gap-1.5 transition-colors">
+                  <LogOut className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <a href="/login" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <UserIcon className="h-4 w-4" />
+                Login
+              </a>
+            )}
           </div>
         </nav>
 
@@ -91,8 +111,33 @@ const Header = () => {
                 </motion.div>
               ))}
 
-              <div className="pt-3 border-t border-border/30">
+              <div className="pt-3 mt-2 border-t border-border/30 flex items-center justify-between">
                 <ThemeToggle />
+                
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <a 
+                      href="/admin" 
+                      onClick={() => setMobileOpen(false)}
+                      className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-1.5"
+                    >
+                      <LayoutDashboard className="h-4 w-4" />
+                      Dashboard
+                    </a>
+                    <button onClick={() => { logout(); setMobileOpen(false); }} className="text-destructive">
+                      <LogOut className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <a 
+                    href="/login" 
+                    onClick={() => setMobileOpen(false)}
+                    className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-1.5"
+                  >
+                    <UserIcon className="h-4 w-4" />
+                    Login
+                  </a>
+                )}
               </div>
             </div>
           </motion.nav>

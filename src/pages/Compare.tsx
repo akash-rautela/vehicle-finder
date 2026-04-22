@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { vehicles, Vehicle } from "@/data/vehicles";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 import { X, ExternalLink, Plus } from "lucide-react";
 
 const formatPrice = (price: number) => {
@@ -8,14 +9,14 @@ const formatPrice = (price: number) => {
   return `₹${price.toLocaleString("en-IN")}`;
 };
 
-const getImage = (v: Vehicle) => {
+const getImage = (v: any) => {
   return `/images/${v.brand}-${v.model}.jpg`
     .replace(/\s+/g, "")
     .toLowerCase();
 };
 
 /* ---------- AI COMPARISON ---------- */
-const getBestVehicle = (list: Vehicle[]) => {
+const getBestVehicle = (list: any[]) => {
   if (list.length < 2) return null;
 
   return list.map((v) => {
@@ -32,26 +33,34 @@ const getBestVehicle = (list: Vehicle[]) => {
 
 const Compare = () => {
   const [vehicleType, setVehicleType] = useState<"2W" | "4W">("2W");
-  const [selected, setSelected] = useState<Vehicle[]>([]);
+  const [selected, setSelected] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+
+  const { data: vehicles = [] } = useQuery({
+    queryKey: ['vehicles'],
+    queryFn: async () => {
+      const { data } = await api.get('/vehicles');
+      return data.map((v: any) => ({ ...v, model: v.vehicleModel, id: v._id }));
+    },
+  });
 
   const available = useMemo(
     () =>
       vehicles
-        .filter((v) => v.vehicleType === vehicleType)
-        .filter((v) => !selected.find((s) => s.id === v.id))
-        .filter((v) =>
+        .filter((v: any) => v.vehicleType === vehicleType)
+        .filter((v: any) => !selected.find((s: any) => s.id === v.id))
+        .filter((v: any) =>
           `${v.brand} ${v.model}`
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
         ),
-    [vehicleType, selected, searchTerm]
+    [vehicleType, selected, searchTerm, vehicles]
   );
 
   const bestVehicle = getBestVehicle(selected);
 
-  const addVehicle = (v: Vehicle) => {
+  const addVehicle = (v: any) => {
     if (selected.length < 3) {
       setSelected((prev) => [...prev, v]);
       setShowPicker(false);

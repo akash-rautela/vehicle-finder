@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 import QuestionnaireStep from "@/components/QuestionnaireStep";
 import ProgressBar from "@/components/ProgressBar";
 import VehicleCard from "@/components/VehicleCard";
-import { vehicles, Vehicle } from "@/data/vehicles";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, RotateCcw, Car } from "lucide-react";
 
@@ -139,6 +140,14 @@ const Index = () => {
     setShowResults(false);
   };
 
+  const { data: vehicles = [] } = useQuery({
+    queryKey: ['vehicles'],
+    queryFn: async () => {
+      const { data } = await api.get('/vehicles');
+      return data.map((v: any) => ({ ...v, model: v.vehicleModel, id: v._id }));
+    },
+  });
+
   const results = useMemo(() => {
     if (!showResults || !answers.type || !answers.engine) return [];
 
@@ -170,15 +179,24 @@ const Index = () => {
   }, [showResults, answers, usageAnswers, customBudget]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-mesh selection:bg-primary/20">
       {/* HEADER */}
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <Car className="w-8 h-8 text-primary" />
-          <h1 className="text-4xl font-extrabold">VehicleFinder</h1>
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        className="text-center mb-10 relative"
+      >
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 shadow-lg shadow-primary/5">
+            <Car className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-5xl font-black tracking-tight text-foreground">
+            Moto<span className="text-primary">Match</span>
+          </h1>
         </div>
-        <p className="text-muted-foreground">
-          Answer a few questions and we’ll find your perfect ride
+        <p className="text-xl text-muted-foreground font-medium max-w-lg mx-auto leading-relaxed">
+          The ultimate platform to find, compare and track your dream ride.
         </p>
       </motion.div>
 

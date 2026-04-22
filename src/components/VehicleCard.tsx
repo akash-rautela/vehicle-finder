@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Vehicle } from "@/data/vehicles";
+// import { Vehicle } from "@/data/vehicles"; // Removed
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 
@@ -10,10 +10,10 @@ const formatPrice = (price: number) => {
 };
 
 /* ---------- COMPONENT ---------- */
-const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) => {
+const VehicleCard = ({ vehicle, index }: { vehicle: any; index: number }) => {
   const getIcon = () => {
     if (vehicle.vehicleType === "4W") return "🚗";
-    if (vehicle.energyType === "Electric") return "🏍️⚡";
+    if (vehicle.energyType === "Electric") return "⚡";
     return "🏍️";
   };
 
@@ -22,77 +22,69 @@ const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) =>
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{
-        scale: 1.04,
-        rotateX: 3,
-        rotateY: -3,
+        y: -5,
+        transition: { duration: 0.2 }
       }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="relative glass-card p-4 rounded-2xl overflow-hidden group transition-all duration-300"
+      className="relative glass-card p-5 rounded-3xl group"
     >
       {/* 🔥 Glow Border */}
-      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/60 group-hover:shadow-[0_0_25px_rgba(255,0,0,0.4)] transition-all duration-300 pointer-events-none"></div>
+      <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-primary/40 group-hover:shadow-[0_0_40px_rgba(var(--primary),0.1)] transition-all duration-300 pointer-events-none"></div>
 
       {/* IMAGE */}
-      <div className="w-full h-40 mb-4 overflow-hidden rounded-xl">
+      <div className="w-full h-48 mb-5 overflow-hidden rounded-2xl relative shadow-inner bg-secondary/50">
         <img
           src={vehicle.image || "/images/default.jpeg"}
           alt={vehicle.model}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
           onError={(e) => (e.currentTarget.src = "/images/default.jpeg")}
         />
+        <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary border border-primary/20">
+          {getIcon()} {vehicle.energyType}
+        </div>
       </div>
 
-      {/* ICON */}
-      <div className="text-3xl mb-2">{getIcon()}</div>
-
       {/* BRAND + USAGE */}
-      <div className="flex items-center gap-2 mb-1 flex-wrap">
-        <span className="text-muted-foreground text-sm font-medium">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-muted-foreground text-sm font-bold tracking-wider uppercase">
           {vehicle.brand}
         </span>
         <Badge
           variant="outline"
-          className="text-xs border-primary/40 text-primary capitalize"
+          className="text-[10px] px-2 py-0 h-5 border-primary/20 text-primary uppercase font-bold tracking-widest bg-primary/5"
         >
           {vehicle.usageType}
         </Badge>
       </div>
 
       {/* MODEL */}
-      <h3 className="text-xl font-bold text-foreground mb-2">
+      <h3 className="text-2xl font-black text-foreground mb-1 leading-tight">
         {vehicle.model}
       </h3>
 
       {/* PRICE */}
-      <p className="text-gradient font-bold text-lg mb-3">
+      <p className="text-primary font-black text-xl mb-5">
         {formatPrice(vehicle.price)}
       </p>
 
-      {/* TAGS */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
-          {vehicle.energyType}
-        </span>
-
-        <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
-          {vehicle.energyType === "Electric"
-            ? `${vehicle.mileage} km`
-            : `${vehicle.mileage} km/l`}
-        </span>
-
-        {vehicle.engineCC > 0 && (
-          <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
-            {vehicle.engineCC}cc
-          </span>
-        )}
-      </div>
-
-      {/* SPECS */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground mb-4">
-        <span>Power: {vehicle.powerBHP ?? "-"} BHP</span>
-        <span>Torque: {vehicle.mileage ?? "-"} Nm</span>
-        <span>Weight: {vehicle.engineCC ?? "-"} kg</span>
-        <span>GC: {vehicle.groundClearanceMM ?? "-"} mm</span>
+      {/* SPECS GRID */}
+      <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="p-2.5 rounded-xl bg-secondary/30 border border-border/50">
+          <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">Power</p>
+          <p className="text-sm font-bold">{vehicle.powerBHP ?? "-"} BHP</p>
+        </div>
+        <div className="p-2.5 rounded-xl bg-secondary/30 border border-border/50">
+          <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">Torque</p>
+          <p className="text-sm font-bold">{vehicle.torqueNM ?? "-"} Nm</p>
+        </div>
+        <div className="p-2.5 rounded-xl bg-secondary/30 border border-border/50">
+          <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">Mileage</p>
+          <p className="text-sm font-bold">{vehicle.mileage}{vehicle.energyType === 'Electric' ? 'km' : 'kmpl'}</p>
+        </div>
+        <div className="p-2.5 rounded-xl bg-secondary/30 border border-border/50">
+          <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">Weight</p>
+          <p className="text-sm font-bold">{vehicle.weightKG ?? "-"} kg</p>
+        </div>
       </div>
 
       {/* LINK */}
@@ -101,10 +93,10 @@ const VehicleCard = ({ vehicle, index }: { vehicle: Vehicle; index: number }) =>
           href={vehicle.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20"
         >
-          <ExternalLink className="h-4 w-4" />
           View Details
+          <ExternalLink className="h-4 w-4" />
         </a>
       )}
     </motion.div>
