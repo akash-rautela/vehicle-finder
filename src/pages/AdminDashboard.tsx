@@ -112,11 +112,13 @@ const AdminDashboard = () => {
             setIsDialogOpen(open);
             if (!open) setEditingVehicle(null);
           }}>
-            <DialogTrigger asChild>
-              <Button className="bg-primary hover:opacity-90 font-bold px-6 h-11 rounded-xl shadow-lg shadow-primary/20 transition-all">
-                <Plus className="mr-2 h-4 w-4" /> Add Vehicle
-              </Button>
-            </DialogTrigger>
+            {user?.role === 'admin' && (
+              <DialogTrigger asChild>
+                <Button className="bg-primary hover:opacity-90 font-bold px-6 h-11 rounded-xl shadow-lg shadow-primary/20 transition-all">
+                  <Plus className="mr-2 h-4 w-4" /> Add Vehicle
+                </Button>
+              </DialogTrigger>
+            )}
             <DialogContent className="max-w-2xl glass-dialog border-primary/20 text-foreground p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-black">{editingVehicle ? 'Edit Vehicle' : 'Add New Vehicle'}</DialogTitle>
@@ -274,13 +276,15 @@ const AdminDashboard = () => {
                     }}>
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" className="hover:bg-destructive/10 text-destructive h-9 w-9 rounded-lg" onClick={() => {
-                      if (window.confirm('Are you sure you want to delete this vehicle?')) {
-                        deleteMutation.mutate(vehicle._id);
-                      }
-                    }}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    {user?.role === 'admin' && (
+                      <Button size="icon" variant="ghost" className="hover:bg-destructive/10 text-destructive h-9 w-9 rounded-lg" onClick={() => {
+                        if (window.confirm('Are you sure you want to delete this vehicle?')) {
+                          deleteMutation.mutate(vehicle._id);
+                        }
+                      }}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>

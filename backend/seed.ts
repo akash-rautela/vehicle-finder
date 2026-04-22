@@ -24,6 +24,16 @@ const seedData = async () => {
     });
 
     console.log('Admin User Created');
+    
+    // Create editor user
+    await User.create({
+      name: 'Editor User',
+      email: 'editor@motomatch.com',
+      password: 'editorpassword123',
+      role: 'team',
+    });
+
+    console.log('Editor User Created');
 
     // Prepare vehicle data
     const preparedVehicles = vehicles.map((v: any) => {

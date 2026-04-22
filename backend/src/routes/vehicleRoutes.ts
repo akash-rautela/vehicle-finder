@@ -6,15 +6,15 @@ import {
   updateVehicle,
   deleteVehicle,
 } from '../controllers/vehicleController';
-import { protect } from '../middleware/auth';
+import { protect, admin } from '../middleware/auth';
 
 const router = express.Router();
 
-router.route('/').get(getVehicles).post(protect, createVehicle);
+router.route('/').get(getVehicles).post(protect, admin, createVehicle);
 router
   .route('/:id')
   .get(getVehicleById)
   .put(protect, updateVehicle)
-  .delete(protect, deleteVehicle);
+  .delete(protect, admin, deleteVehicle);
 
 export default router;
