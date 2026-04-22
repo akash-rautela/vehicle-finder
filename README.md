@@ -204,7 +204,7 @@ npm run preview
 
 ## 📸 Screenshots
 
-![MotoMatch Hero](./screenshots/home.png)
+![MotoMatch Hero](./screenshots/home1.png)
 
 ---
 
