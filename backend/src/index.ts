@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db';
+import rateLimit from 'express-rate-limit';
 
 import path from 'path';
 import authRoutes from './routes/authRoutes';
@@ -18,6 +19,14 @@ const app = express();
 
 // Body parser
 app.use(express.json());
+
+// Rate Limiting (Security)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes',
+});
+app.use('/api', limiter);
 
 // Enable CORS
 app.use(cors({
