@@ -37,7 +37,7 @@ const Header = () => {
         <a href="/" className="flex items-center gap-2.5 group">
           <Car className="h-7 w-7 text-primary transition-transform duration-300 group-hover:rotate-6" />
           <span className="text-xl font-extrabold tracking-tight text-foreground">
-            Vehicle<span className="text-primary">Finder</span>
+            Moto<span className="text-primary">Match</span>
           </span>
         </a>
 

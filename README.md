@@ -1,4 +1,4 @@
-# 🚗 Vehicle Finder
+# 🏎️ MotoMatch
 
 <p align="center">
   <b>Stop searching. Start matching your perfect ride.</b><br/>
@@ -9,8 +9,8 @@
   <img src="https://img.shields.io/badge/React-Vite-blue?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css" />
   <img src="https://img.shields.io/badge/TypeScript-Essential-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb" />
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
-  <img src="https://img.shields.io/github/stars/akash-rautela/vehicle-finder?style=for-the-badge" />
 </p>
 
 ---
@@ -35,9 +35,9 @@
 
 ## ✨ About the Project
 
-**Vehicle Finder** is a modern, intelligent web application that helps users discover their perfect vehicle match. Whether you're looking for a **2-wheeler 🏍️** or **4-wheeler 🚗**, our smart recommendation system takes the guesswork out of vehicle selection.
+**MotoMatch** is a modern, intelligent web application that helps users discover their perfect vehicle match. Whether you're looking for a **2-wheeler 🏍️** or **4-wheeler 🚗**, our smart recommendation system takes the guesswork out of vehicle selection.
 
-Simply answer a few questions about your budget, preferences, and usage needs, and let Vehicle Finder suggest the best options tailored just for you.
+Simply answer a few questions about your budget, preferences, and usage needs, and let MotoMatch suggest the best options tailored just for you.
 
 ---
 
@@ -63,7 +63,10 @@ Simply answer a few questions about your budget, preferences, and usage needs, a
 | ⚡ Vite | Lightning-fast build tool | Latest |
 | 🎨 Tailwind CSS | Utility-first styling | 3+ |
 | 📘 TypeScript | Type-safe JavaScript | Latest |
-| 🚀 Vercel | Hosting & Deployment | Cloud |
+| 🍃 MongoDB Atlas | Cloud NoSQL Database | Cloud |
+| ☁️ Cloudinary | Media Management & Storage | Cloud |
+| 🚀 Render | Backend Cloud Hosting | Cloud |
+| 🔒 JWT | Secure Authentication | - |
 
 ---
 
