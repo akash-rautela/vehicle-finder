@@ -42,5 +42,3 @@ router.post('/', protect, admin, upload.single('image'), (req: Request, res: Res
 });
 
 export default router;
-
-export default router;

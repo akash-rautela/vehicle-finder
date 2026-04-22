@@ -11,7 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "seed.ts"],
+  "include": ["src/**/*", "seed.ts", "initialData.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
     "esm": false

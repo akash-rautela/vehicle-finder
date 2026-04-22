@@ -14,6 +14,7 @@ export interface Vehicle {
   groundClearanceMM: number;
   usageType: "daily" | "sports" | "cruiser" | "adventure";
   link: string;
+  image?: string;
 }
 
 export const vehicles: Vehicle[] = [
