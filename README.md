@@ -145,54 +145,45 @@ npm run preview
 
 ---
 
+---
+
 ## 🧠 How It Works
 
-The Vehicle Finder uses a questionnaire-based approach to recommend vehicles:
+**MotoMatch** uses a conversational approach to recommend vehicles:
 
-1. **User Input** - Answer questions about budget, vehicle type, and usage patterns
-2. **Data Processing** - System analyzes preferences and requirements
-3. **Smart Matching** - Advanced algorithm matches user profile with vehicle database
-4. **Personalized Results** - Ranked list of recommended vehicles displayed
-5. **Detailed Comparison** - Users can compare specs and features side-by-side
+1. **User Persona Analysis** - Answer intuitive questions about budget, vehicle category, and lifestyle.
+2. **Real-time Processing** - The engine cross-references your profile with our curated cloud database.
+3. **Smart Matching** - An advanced algorithm ranks vehicles based on power, efficiency, and cost compatibility.
+4. **Interactive Discovery** - Browse personalized matches with high-fidelity visuals and detailed specifications.
+5. **Direct Comparison** - Use the comparison engine to weigh pros and cons of your top choices.
 
-### Recommendation Algorithm
-
-- Budget compatibility scoring
-- Feature preference matching
-- Performance metrics alignment
-- User requirement fulfillment
+### Core Metrics
+- **Budget Precision**: Matches within your specified price range.
+- **Usage Alignment**: Identifies if a vehicle is for daily commute, sports, or adventure.
+- **Powertrain Filtering**: Supports Petrol, Diesel, Electric, and Hybrid variants.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-src/
-├── components/           # Reusable React components
-│   ├── Header.tsx       # Navigation header
-│   ├── Footer.tsx       # Footer section
-│   ├── VehicleCard.tsx  # Vehicle display card
-│   ├── QuestionnaireStep.tsx # Questionnaire steps
-│   ├── ThemeToggle.tsx  # Dark/light mode toggle
-│   └── ui/              # UI component library
-├── pages/               # Page components
-│   ├── Index.tsx        # Home page
-│   ├── Browse.tsx       # Vehicle browsing page
-│   ├── Compare.tsx      # Vehicle comparison page
-│   ├── About.tsx        # About page
-│   ├── Contact.tsx      # Contact page
-│   └── NotFound.tsx     # 404 page
-├── data/                # Static data
-│   └── vehicles.ts      # Vehicle database
-├── hooks/               # Custom React hooks
-│   ├── use-theme.tsx    # Theme management
-│   ├── use-mobile.tsx   # Mobile detection
-│   └── use-toast.ts     # Toast notifications
-├── lib/                 # Utility functions
-│   └── utils.ts         # Helper functions
-├── App.tsx              # Main app component
-├── main.tsx             # Entry point
-└── index.css            # Global styles
+├── backend/               # Node.js Express Backend
+│   ├── src/
+│   │   ├── controllers/   # Route controllers
+│   │   ├── models/        # Mongoose schemas
+│   │   ├── routes/        # API route definitions
+│   │   ├── middleware/    # Auth & security middleware
+│   │   ├── config/        # DB & Cloudinary config
+│   │   └── index.ts       # Server entry point
+│   └── initialData.ts     # Database seeding data
+├── src/                   # React Frontend
+│   ├── components/        # Reusable UI components
+│   ├── pages/             # Page-level components
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # API (Axios) & Utils
+│   ├── App.tsx            # Main routes
+│   └── index.css          # Premium styles (Glassmorphism)
+└── SYNOPSIS.md            # Detailed project documentation
 ```
 
 ---
@@ -209,70 +200,53 @@ src/
 
 ---
 
+---
+
 ## 📸 Screenshots
 
-![Home Page](./screenshots/home.png)
+![MotoMatch Hero](./screenshots/home.png)
 
 ---
 
 ## 🌐 Live Demo
 
-👉 **[Visit Vehicle Finder](https://vehicle-finder-zeta.vercel.app/)**
+👉 **[Visit MotoMatch Live](https://vehicle-finder-gie7.onrender.com)**
+
+---
+
+## ⚙️ Environment Configuration
+
+To run MotoMatch locally, you'll need to set up the following environment variables in your `backend/.env` file:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_secure_random_string
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+NODE_ENV=development
+```
+
+---
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+We welcome contributions from the community!
 
 1. **Fork** the repository
-2. **Create** a new branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
+2. **Create** a feature branch (`git checkout -b feature/new-design`)
+3. **Commit** your changes (`git commit -m 'Add premium feature'`)
+4. **Push** to the branch (`git push origin feature/new-design`)
 5. **Open** a Pull Request
 
-### Guidelines
-
-- Follow the existing code style
-- Write clear, descriptive commit messages
-- Add comments for complex logic
-- Test your changes before submitting
-
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 📞 Support & Feedback
-
-Have questions or suggestions? Feel free to:
-- Open an [Issue](https://github.com/akash-rautela/vehicle-finder/issues)
-- Check existing [Discussions](https://github.com/akash-rautela/vehicle-finder/discussions)
-- Reach out via the Contact page
-
----
-
-<p align="center">
-  Made with ❤️ by the Vehicle Finder team
-</p>
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repo
-2. Create a new branch
-3. Make changes
-4. Submit a PR 🚀
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**
+This project is licensed under the **MIT License**.
 
 ---
 
@@ -280,23 +254,15 @@ This project is licensed under the **MIT License**
 
 **Akash Rautela**
 
-* GitHub: [https://github.com/akash-rautela](https://github.com/akash-rautela)
-* LinkedIn: [https://www.linkedin.com/in/akash-singh-rautela](https://www.linkedin.com/in/akash-singh-rautela)
+* GitHub: [akash-rautela](https://github.com/akash-rautela)
+* LinkedIn: [Akash Singh Rautela](https://www.linkedin.com/in/akash-singh-rautela)
 
 ---
 
 ## ⭐ Support
 
-If you like this project:
-
-👉 Give it a **star ⭐**
-👉 Share with friends
-
----
+If you find MotoMatch useful, please consider giving the repository a **Star ⭐**!
 
 <p align="center">
   Made with ❤️ by Akash
 </p>
-```
-
----
