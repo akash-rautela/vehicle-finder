@@ -29,3 +29,6 @@ dist-ssr
 backend/.env
 uploads/
 dist/
+
+# Graphify (auto-generated knowledge graph)
+graphify-out/
