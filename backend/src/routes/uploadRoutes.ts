@@ -21,7 +21,7 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     return {
       folder: 'motomatch',
-      allowedFormats: ['jpg', 'png', 'jpeg'],
+      allowed_formats: ['jpg', 'png', 'jpeg'],
       public_id: `${file.fieldname}-${Date.now()}`,
     };
   },
@@ -33,7 +33,14 @@ router.post('/', protect, (req: Request, res: Response, next: any) => {
   upload.single('image')(req, res, (err: any) => {
     if (err) {
       console.error('Multer/Cloudinary Error:', err);
-      return res.status(400).json({ message: 'Image upload failed', error: err.message });
+      // Log more details if available
+      if (err.http_code) console.error('Cloudinary HTTP Code:', err.http_code);
+      if (err.message) console.error('Error Message:', err.message);
+      
+      return res.status(400).json({ 
+        message: 'Image upload failed', 
+        error: err.message || 'Unknown upload error' 
+      });
     }
     next();
   });

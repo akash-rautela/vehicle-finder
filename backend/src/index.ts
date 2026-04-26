@@ -1,5 +1,9 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
+
+// Load env vars at the very beginning
+dotenv.config();
+
 import cors from 'cors';
 import connectDB from './config/db';
 import rateLimit from 'express-rate-limit';
@@ -8,9 +12,6 @@ import path from 'path';
 import authRoutes from './routes/authRoutes';
 import vehicleRoutes from './routes/vehicleRoutes';
 import uploadRoutes from './routes/uploadRoutes';
-
-// Load env vars
-dotenv.config();
 
 // Connect to database
 connectDB();

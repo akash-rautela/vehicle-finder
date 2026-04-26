@@ -23,12 +23,12 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
       next();
     } catch (error) {
       console.error(error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
+      return res.status(401).json({ message: 'Not authorized, token failed' });
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
 
@@ -36,6 +36,6 @@ export const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
   if (req.user && req.user.role === 'admin') {
     next();
   } else {
-    res.status(401).json({ message: 'Not authorized as an admin' });
+    return res.status(401).json({ message: 'Not authorized as an admin' });
   }
 };
