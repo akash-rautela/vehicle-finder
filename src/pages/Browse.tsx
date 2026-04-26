@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import VehicleCard from "@/components/VehicleCard";
-import { Car } from "lucide-react";
+import { Car, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const Browse = () => {
   const [selected, setSelected] = useState<"2W" | "4W" | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data: vehicles = [], isLoading } = useQuery({
     queryKey: ['vehicles'],
@@ -28,11 +30,27 @@ const Browse = () => {
 
   /* -------- FILTER -------- */
   const filtered = useMemo(() => {
-    if (!selected) return [];
-    return vehicles
-      .filter((v: any) => v.vehicleType === selected)
-      .sort((a: any, b: any) => a.price - b.price);
-  }, [selected, vehicles]);
+    let result = vehicles;
+    
+    // Filter by category if selected and not searching globally
+    if (selected) {
+      result = result.filter((v: any) => v.vehicleType === selected);
+    }
+    
+    // Filter by search term
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter((v: any) => 
+        v.brand.toLowerCase().includes(term) || 
+        v.vehicleModel.toLowerCase().includes(term)
+      );
+    }
+
+    // If no selection and no search, return empty (or you can return everything, but current design uses placeholders)
+    if (!selected && !searchTerm) return [];
+
+    return result.sort((a: any, b: any) => a.price - b.price);
+  }, [selected, searchTerm, vehicles]);
 
   /* -------- UI -------- */
   return (
@@ -60,6 +78,28 @@ const Browse = () => {
           <p className="text-lg text-muted-foreground font-medium max-w-2xl opacity-70">
             A curated selection of {vehicles.length} high-performance vehicles, verified for excellence.
           </p>
+        </motion.div>
+
+        {/* SEARCH BAR */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="relative max-w-2xl mb-12"
+        >
+          <div className="relative group">
+            <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-xl group-focus-within:bg-primary/10 transition-all duration-500" />
+            <div className="relative flex items-center">
+              <Search className="absolute left-4 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Input
+                type="text"
+                placeholder="Search by brand or model (e.g. Honda, Activa)..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-12 h-14 bg-card/40 border-primary/10 hover:border-primary/20 focus:border-primary/40 rounded-2xl text-lg font-medium transition-all duration-300 placeholder:text-muted-foreground/50"
+              />
+            </div>
+          </div>
         </motion.div>
 
         {/* CATEGORY SELECTOR */}
@@ -105,9 +145,9 @@ const Browse = () => {
 
         {/* RESULTS GRID */}
         <AnimatePresence mode="wait">
-          {selected ? (
+          {(selected || searchTerm) ? (
             <motion.div
-              key={selected}
+              key={selected || "search"}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -120,7 +160,7 @@ const Browse = () => {
               ) : (
                 <div className="col-span-full py-20 text-center glass-card border-dashed">
                   <p className="text-xl text-muted-foreground font-black uppercase tracking-widest opacity-30">
-                    No matching inventory
+                    No matching inventory found for "{searchTerm}"
                   </p>
                 </div>
               )}
@@ -134,7 +174,7 @@ const Browse = () => {
               <Car className="w-12 h-12 text-muted-foreground/20" />
               <div>
                 <p className="text-xl font-black text-foreground/30 uppercase tracking-widest">
-                  Select a category above
+                  Select a category or search above
                 </p>
                 <p className="text-xs text-muted-foreground/40 font-bold uppercase mt-2">To reveal the collection</p>
               </div>
