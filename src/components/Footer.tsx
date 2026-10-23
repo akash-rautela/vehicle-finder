@@ -1,59 +1,118 @@
 import { Car } from "lucide-react";
 
 const Footer = () => (
-  <footer className="mt-auto border-t border-white/5 bg-card/20 backdrop-blur-3xl">
-    <div className="mx-auto max-w-7xl px-6 py-16 md:px-8">
-      <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+  <footer className="mt-auto border-t border-border/30 bg-card/10 backdrop-blur-2xl">
+    <div className="mx-auto max-w-7xl px-6 py-14 md:px-10">
+
+      {/* 4-column grid on desktop, stacked on mobile */}
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
         {/* Brand */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2.5">
-            <Car className="h-6 w-6 text-primary" />
-            <span className="text-xl font-black text-foreground tracking-tight">
+          <a href="/" className="inline-flex items-center gap-2.5 group">
+            <Car className="h-6 w-6 text-primary transition-transform duration-300 group-hover:rotate-6" />
+            <span className="text-xl font-bold text-foreground tracking-tight">
               Moto<span className="text-primary">Match</span>
             </span>
-          </div>
-          <p className="text-xs text-muted-foreground/60 leading-relaxed font-medium uppercase tracking-widest">
-            THE NEXT GENERATION OF VEHICLE SEARCH & DISCOVERY.
+          </a>
+          <p className="text-sm leading-relaxed font-medium" style={{ color: "#A1A1AA" }}>
+            The next generation of vehicle search & discovery. Find your perfect match.
           </p>
         </div>
 
-        {/* Quick Links */}
+        {/* Navigation */}
         <div>
-          <h4 className="mb-6 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">Navigation</h4>
-          <ul className="space-y-3 text-xs font-bold text-muted-foreground">
-            <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
-            <li><a href="/browse" className="hover:text-primary transition-colors">Browse Catalog</a></li>
-            <li><a href="/compare" className="hover:text-primary transition-colors">Comparison Tool</a></li>
+          <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
+            Navigation
+          </h4>
+          <ul className="space-y-3">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/browse", label: "Browse Catalog" },
+              { href: "/compare", label: "Comparison Tool" },
+              { href: "/about", label: "About" },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="footer-link"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Categories */}
+        {/* Collections */}
         <div>
-          <h4 className="mb-6 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">Collections</h4>
-          <ul className="space-y-3 text-xs font-bold text-muted-foreground">
-            <li><a href="/browse" className="hover:text-primary transition-colors">Performance 2W</a></li>
-            <li><a href="/browse" className="hover:text-primary transition-colors">Luxury 4W</a></li>
-            <li><a href="/browse" className="hover:text-primary transition-colors">Electric Future</a></li>
+          <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
+            Collections
+          </h4>
+          <ul className="space-y-3">
+            {[
+              { href: "/browse", label: "Performance 2W" },
+              { href: "/browse", label: "Luxury 4W" },
+              { href: "/browse", label: "Electric Future" },
+              { href: "/browse", label: "Budget Picks" },
+            ].map(({ href, label }) => (
+              <li key={label}>
+                <a href={href} className="footer-link">
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Contact */}
         <div>
-          <h4 className="mb-6 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">Inquiries</h4>
-          <ul className="space-y-3 text-xs font-bold text-muted-foreground">
-            <li><a href="mailto:akashrautelacms@gmail.com" className="hover:text-primary transition-colors">akashrautelacms@gmail.com</a></li>
-            <li className="opacity-60">+91 86047 35639</li>
+          <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
+            Get in Touch
+          </h4>
+          <ul className="space-y-3">
+            <li>
+              <a
+                href="mailto:akashrautelacms@gmail.com"
+                className="footer-link break-all"
+              >
+                akashrautelacms@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="tel:+918604735639" className="footer-link">
+                +91 86047 35639
+              </a>
+            </li>
+            <li>
+              <a href="/contact" className="footer-link">
+                Contact form →
+              </a>
+            </li>
           </ul>
         </div>
       </div>
 
-      <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-widest">
+      {/* Bottom bar */}
+      <div className="mt-12 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-xs font-medium" style={{ color: "#71717A" }}>
           © {new Date().getFullYear()} MotoMatch. All rights reserved.
         </p>
         <div className="flex gap-6">
-          <a href="#" className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-widest hover:text-primary transition-colors">Privacy</a>
-          <a href="#" className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-widest hover:text-primary transition-colors">Terms</a>
+          <a
+            href="/privacy"
+            className="text-xs font-medium transition-colors duration-200 hover:text-primary focus-visible:text-primary focus-visible:outline-none"
+            style={{ color: "#71717A" }}
+          >
+            Privacy Policy
+          </a>
+          <a
+            href="/terms"
+            className="text-xs font-medium transition-colors duration-200 hover:text-primary focus-visible:text-primary focus-visible:outline-none"
+            style={{ color: "#71717A" }}
+          >
+            Terms of Use
+          </a>
         </div>
       </div>
     </div>

@@ -14,10 +14,10 @@ const NavItem = ({ href, label, onClick }: NavItemProps) => (
   <a
     href={href}
     onClick={onClick}
-    className="relative text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-primary group"
+    className="relative text-[15px] font-semibold text-muted-foreground transition-all duration-200 hover:text-foreground group focus-visible:outline-none focus-visible:text-primary"
   >
     {label}
-    <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
+    <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full rounded-full"></span>
   </a>
 );
 
@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="nav-glass">
+      <header className="nav-glass" role="banner">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
 
           {/* LOGO */}
@@ -59,7 +59,7 @@ const Header = () => {
           </a>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
             {navLinks.map(({ href, label }) => (
               <NavItem key={href} href={href} label={label} />
             ))}

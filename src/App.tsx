@@ -16,6 +16,8 @@ import Contact from "./pages/Contact.tsx";
 import Login from "./pages/Login.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
+import TermsOfUse from "./pages/TermsOfUse.tsx";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<TermsOfUse />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

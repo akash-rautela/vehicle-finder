@@ -12,6 +12,7 @@ import path from 'path';
 import authRoutes from './routes/authRoutes';
 import vehicleRoutes from './routes/vehicleRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import legalRoutes from './routes/legalRoutes';
 
 // Connect to database
 connectDB();
@@ -40,13 +41,25 @@ app.use(cors({
 app.use('/api/auth', authRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/legal', legalRoutes);
 
 // Static folder for uploads
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-// Basic route
+// Root route
 app.get('/', (req: Request, res: Response) => {
-  res.send('MotoMatch API is running...');
+  res.json({
+    name: 'MotoMatch API',
+    version: '1.0.0',
+    status: 'running',
+    author: 'Akash Rautela',
+    endpoints: [
+      '/api/auth',
+      '/api/vehicles',
+      '/api/upload',
+      '/api/legal',
+    ],
+  });
 });
 
 const PORT = process.env.PORT || 5000;
