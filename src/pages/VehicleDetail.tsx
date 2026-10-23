@@ -10,6 +10,48 @@ const formatPrice = (price: number) => {
   return `₹${price.toLocaleString("en-IN")}`;
 };
 
+const normalizeVehicleRecord = (vehicle: any) => {
+  if (!vehicle || typeof vehicle !== "object") return vehicle;
+
+  const fallbackVehicle = fallbackVehicles.find((item: any) =>
+    String(item.id) === String(vehicle.id ?? vehicle._id) ||
+    String(item.model ?? item.vehicleModel) === String(vehicle.model ?? vehicle.vehicleModel ?? "")
+  );
+
+  if (!fallbackVehicle) return vehicle;
+
+  const normalized = { ...vehicle };
+  const numericFields = [
+    "price",
+    "engineCC",
+    "mileage",
+    "powerBHP",
+    "torqueNM",
+    "weightKG",
+    "seatingCapacity",
+    "groundClearanceMM",
+  ];
+
+  numericFields.forEach((field) => {
+    const fallbackValue = fallbackVehicle[field];
+    const currentValue = normalized[field];
+
+    if (
+      fallbackValue !== undefined &&
+      fallbackValue !== null &&
+      (currentValue === undefined || currentValue === null || Number(currentValue) === 0)
+    ) {
+      normalized[field] = fallbackValue;
+    }
+  });
+
+  normalized.id = normalized.id ?? fallbackVehicle.id;
+  normalized.model = normalized.model ?? fallbackVehicle.model ?? fallbackVehicle.vehicleModel;
+  normalized.vehicleModel = normalized.vehicleModel ?? fallbackVehicle.vehicleModel ?? fallbackVehicle.model;
+
+  return normalized;
+};
+
 const getVehicleImage = (vehicle: any) => {
   if (typeof vehicle?.image === "string" && vehicle.image.trim()) {
     return vehicle.image;
@@ -37,10 +79,10 @@ const VehicleDetail = () => {
     const fetchVehicle = async () => {
       try {
         const { data } = await api.get(`/vehicles/${id}`);
-        setVehicle(data);
+        setVehicle(normalizeVehicleRecord(data));
       } catch {
         const localVehicle = fallbackVehicles.find((item) => String(item.id) === String(id));
-        setVehicle(localVehicle || null);
+        setVehicle(normalizeVehicleRecord(localVehicle || null));
       } finally {
         setLoading(false);
       }

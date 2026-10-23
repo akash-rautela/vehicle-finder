@@ -3,6 +3,7 @@ export interface Vehicle {
   vehicleType: "2W" | "4W";
   brand: string;
   model: string;
+  vehicleModel?: string;
   energyType: "Petrol" | "Electric" | "Diesel" | "CNG";
   price: number;
   engineCC: number;

@@ -7,6 +7,48 @@ import { Car, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { vehicles as fallbackVehicles } from "@/data/vehicles";
 
+const normalizeVehicleRecord = (vehicle: any) => {
+  if (!vehicle || typeof vehicle !== "object") return vehicle;
+
+  const fallbackVehicle = fallbackVehicles.find((item: any) =>
+    String(item.id) === String(vehicle.id ?? vehicle._id) ||
+    String(item.model ?? item.vehicleModel) === String(vehicle.model ?? vehicle.vehicleModel ?? "")
+  );
+
+  if (!fallbackVehicle) return vehicle;
+
+  const normalized = { ...vehicle };
+  const numericFields = [
+    "price",
+    "engineCC",
+    "mileage",
+    "powerBHP",
+    "torqueNM",
+    "weightKG",
+    "seatingCapacity",
+    "groundClearanceMM",
+  ];
+
+  numericFields.forEach((field) => {
+    const fallbackValue = fallbackVehicle[field];
+    const currentValue = normalized[field];
+
+    if (
+      fallbackValue !== undefined &&
+      fallbackValue !== null &&
+      (currentValue === undefined || currentValue === null || Number(currentValue) === 0)
+    ) {
+      normalized[field] = fallbackValue;
+    }
+  });
+
+  normalized.id = normalized.id ?? fallbackVehicle.id;
+  normalized.model = normalized.model ?? fallbackVehicle.model ?? fallbackVehicle.vehicleModel;
+  normalized.vehicleModel = normalized.vehicleModel ?? fallbackVehicle.vehicleModel ?? fallbackVehicle.model;
+
+  return normalized;
+};
+
 const Browse = () => {
   const [selected, setSelected] = useState<"2W" | "4W" | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,13 +58,13 @@ const Browse = () => {
     queryFn: async () => {
       try {
         const { data } = await api.get('/vehicles');
-        return data.map((v: any) => ({
+        return data.map((v: any) => normalizeVehicleRecord({
           ...v,
           id: v.id ?? v._id,
           model: v.model ?? v.vehicleModel,
         }));
       } catch {
-        return fallbackVehicles;
+        return fallbackVehicles.map((v: any) => normalizeVehicleRecord(v));
       }
     },
   });
