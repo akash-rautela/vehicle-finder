@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/hooks/use-theme";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import MouseChaseEffect from "@/components/MouseChaseEffect";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Browse from "./pages/Browse.tsx";
@@ -28,11 +27,10 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <MouseChaseEffect />
           <BrowserRouter>
             <div className="relative z-10 flex min-h-screen flex-col">
               <Header />
-              <main className="flex-1">
+              <main className="page-car-bg flex-1">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/browse" element={<Browse />} />

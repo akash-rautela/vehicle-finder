@@ -4,19 +4,16 @@ import { motion } from "framer-motion";
 const socials = [
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/vehiclefinder", handle: "@vehiclefinder" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/akash-singh-rautela", handle: "Akash S. Rautela" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/vehiclefinder", handle: "@vehiclefinder" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/akash-singh-rautela", handle: "Atul S. Rathore" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/sxhaj_", handle: "@vehiclefinder" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/sahaj-kumar-797024311/", handle: "Sahaj Kumar" },
+  
 ];
 
 const Contact = () => (
-  <section className="bg-mesh min-h-screen flex items-center justify-center px-6 py-20">
+  <section className="page-car-bg min-h-screen flex items-center justify-center px-6 py-20">
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6 }}
-      className="w-full max-w-xl glass-card p-12 md:p-16 relative overflow-hidden"
+      className="w-full max-w-xl rounded-[2rem] border border-white/20 bg-white/15 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.18)] p-12 md:p-16 relative overflow-hidden dark:border-white/10 dark:bg-card/20"
     >
       <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-[80px]" />
       
@@ -32,7 +29,7 @@ const Contact = () => (
         {/* Email */}
         <a
           href="mailto:akashrautelacms@gmail.com"
-          className="flex items-center gap-6 p-6 rounded-[1.5rem] bg-secondary/20 border border-border/10 transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group"
+          className="flex items-center gap-6 p-6 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group dark:bg-secondary/20"
         >
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-card border border-border/10 group-hover:bg-primary/10 transition-colors">
             <Mail className="h-6 w-6 text-foreground group-hover:text-primary" />
@@ -51,7 +48,7 @@ const Contact = () => (
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-secondary/20 border border-border/10 transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group"
+              className="flex items-center gap-4 p-4 rounded-2xl border border-white/10 bg-white/10 backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group dark:bg-secondary/20"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-card border border-border/10 group-hover:bg-primary/10 transition-colors">
                 <Icon className="h-4 w-4 text-foreground group-hover:text-primary" />

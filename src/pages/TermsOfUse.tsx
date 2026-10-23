@@ -36,7 +36,7 @@ const Section = ({
 
 const TermsOfUse = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="page-car-bg min-h-screen">
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
 
         {/* Header */}

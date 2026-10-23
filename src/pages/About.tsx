@@ -16,13 +16,11 @@ const values = [
 
 const team = [
   { name: "Akash Singh Rautela", role: "Founder & Developer", emoji: "👨‍💻" },
-  { name: "Atul S. Rathore", role: "UI/UX Designer", emoji: "🎨" },
-  { name: "Sahaj Kumar", role: "Data Analyst", emoji: "📊" },
 ];
 
 const About = () => {
   return (
-    <div className="bg-mesh min-h-screen pt-20">
+    <div className="page-car-bg min-h-screen pt-20">
       <div className="mx-auto max-w-5xl px-6 py-16 md:px-8">
         {/* Hero */}
         <motion.div
@@ -93,7 +91,7 @@ const About = () => {
         {/* Team */}
         <motion.section className="pb-24">
           <h2 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-12 text-center">THE ARCHITECTS</h2>
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="flex justify-center">
             {team.map((t, i) => (
               <motion.div
                 key={t.name}
@@ -102,7 +100,7 @@ const About = () => {
                 whileInView="animate"
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 * i }}
-                className="glass-card p-10 text-center group"
+                className="glass-card w-full max-w-md p-10 text-center group"
               >
                 <div className="text-5xl mb-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-110">{t.emoji}</div>
                 <h3 className="text-lg font-black text-foreground mb-1 group-hover:text-primary transition-colors">{t.name}</h3>

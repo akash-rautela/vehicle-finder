@@ -54,7 +54,7 @@ const Browse = () => {
 
   /* -------- UI -------- */
   return (
-    <section className="min-h-screen px-4 py-20 md:px-8 bg-mesh selection:bg-primary/20">
+    <section className="page-car-bg min-h-screen px-4 py-20 md:px-8 selection:bg-primary/20">
       
       {/* BACKGROUND DECORATION */}
       <div className="fixed inset-0 pointer-events-none -z-10">
