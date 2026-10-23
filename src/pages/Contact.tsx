@@ -29,14 +29,14 @@ const Contact = () => (
         {/* Email */}
         <a
           href="mailto:akashrautelacms@gmail.com"
-          className="flex items-center gap-6 p-6 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group dark:bg-secondary/20"
+          className="flex flex-col items-start gap-4 p-6 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 group dark:bg-secondary/20 sm:flex-row sm:items-center sm:gap-6"
         >
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-card border border-border/10 group-hover:bg-primary/10 transition-colors">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-card border border-border/10 group-hover:bg-primary/10 transition-colors">
             <Mail className="h-6 w-6 text-foreground group-hover:text-primary" />
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/50 mb-1">Official Inquiry</p>
-            <p className="text-sm font-bold text-foreground">akashrautelacms@gmail.com</p>
+            <p className="break-all text-sm font-bold text-foreground sm:break-normal">akashrautelacms@gmail.com</p>
           </div>
         </a>
 
