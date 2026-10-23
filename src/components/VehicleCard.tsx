@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-// import { Vehicle } from "@/data/vehicles"; // Removed
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 /* ---------- HELPERS ---------- */
 const formatPrice = (price: number) => {
@@ -17,6 +17,20 @@ const VehicleCard = ({ vehicle, index }: { vehicle: any; index: number }) => {
     return "🏍️";
   };
 
+  const getVehicleImage = () => {
+    if (typeof vehicle?.image === "string" && vehicle.image.trim()) {
+      return vehicle.image;
+    }
+    return "/images/default.jpeg";
+  };
+
+  const handleImageError = (e: any) => {
+    const target = e.currentTarget as HTMLImageElement;
+    if (target.dataset.fallbackApplied === "true") return;
+    target.dataset.fallbackApplied = "true";
+    target.src = "/images/default.jpeg";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -27,10 +41,10 @@ const VehicleCard = ({ vehicle, index }: { vehicle: any; index: number }) => {
       {/* IMAGE CONTAINER */}
       <div className="relative w-full aspect-[16/10] overflow-hidden rounded-t-[2rem]">
         <img
-          src={vehicle.image || "/images/default.jpeg"}
+          src={getVehicleImage()}
           alt={vehicle.model}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          onError={(e) => (e.currentTarget.src = "/images/default.jpeg")}
+          onError={handleImageError}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         
@@ -77,17 +91,27 @@ const VehicleCard = ({ vehicle, index }: { vehicle: any; index: number }) => {
         </div>
 
         {/* ACTION */}
-        {vehicle.link && (
-          <a
-            href={vehicle.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-auto flex items-center justify-center gap-2 w-full py-4 rounded-[1.5rem] bg-foreground text-background font-black text-xs hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-xl active:scale-[0.98]"
+        <div className="mt-auto flex gap-2">
+          <Link
+            to={`/vehicle/${vehicle._id ?? vehicle.id}`}
+            className="flex flex-1 items-center justify-center gap-2 rounded-[1.5rem] bg-foreground px-4 py-4 text-xs font-black text-background transition-all duration-300 hover:bg-primary hover:text-primary-foreground shadow-xl active:scale-[0.98]"
           >
-            EXPLORE VEHICLE
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
-        )}
+            VIEW DETAILS
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+
+          {vehicle.link && (
+            <a
+              href={vehicle.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-[1.5rem] border border-border/40 bg-background/40 px-4 py-4 text-xs font-black text-foreground transition hover:border-primary/40 hover:text-primary"
+              aria-label={`Open ${vehicle.model} external listing`}
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );

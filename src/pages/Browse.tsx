@@ -5,32 +5,43 @@ import api from "@/lib/api";
 import VehicleCard from "@/components/VehicleCard";
 import { Car, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { vehicles as fallbackVehicles } from "@/data/vehicles";
 
 const Browse = () => {
   const [selected, setSelected] = useState<"2W" | "4W" | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: vehicles = [], isLoading } = useQuery({
+  const { data: fetchedVehicles = [] } = useQuery({
     queryKey: ['vehicles'],
     queryFn: async () => {
-      const { data } = await api.get('/vehicles');
-      return data.map((v: any) => ({ ...v, model: v.vehicleModel, id: v._id }));
+      try {
+        const { data } = await api.get('/vehicles');
+        return data.map((v: any) => ({
+          ...v,
+          id: v.id ?? v._id,
+          model: v.model ?? v.vehicleModel,
+        }));
+      } catch {
+        return fallbackVehicles;
+      }
     },
   });
+
+  const vehicleList = fetchedVehicles as any[];
 
   /* -------- COUNT (optimized) -------- */
   const counts = useMemo(() => {
     const result = { "2W": 0, "4W": 0 };
-    vehicles.forEach((v: any) => {
+    vehicleList.forEach((v: any) => {
       if (v.vehicleType === "2W") result["2W"]++;
       if (v.vehicleType === "4W") result["4W"]++;
     });
     return result;
-  }, [vehicles]);
+  }, [vehicleList]);
 
   /* -------- FILTER -------- */
   const filtered = useMemo(() => {
-    let result = vehicles;
+    let result = vehicleList;
     
     // Filter by category if selected and not searching globally
     if (selected) {
@@ -50,7 +61,7 @@ const Browse = () => {
     if (!selected && !searchTerm) return [];
 
     return result.sort((a: any, b: any) => a.price - b.price);
-  }, [selected, searchTerm, vehicles]);
+  }, [selected, searchTerm, vehicleList]);
 
   /* -------- UI -------- */
   return (
@@ -76,7 +87,7 @@ const Browse = () => {
             Explore <span className="text-primary italic">Collections</span>
           </h1>
           <p className="text-lg text-muted-foreground font-medium max-w-2xl opacity-70">
-            A curated selection of {vehicles.length} high-performance vehicles, verified for excellence.
+            A curated selection of {vehicleList.length} high-performance vehicles, verified for excellence.
           </p>
         </motion.div>
 

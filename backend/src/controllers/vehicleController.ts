@@ -1,5 +1,45 @@
 import { Request, Response } from 'express';
 import Vehicle from '../models/Vehicle';
+import { vehicles as seedVehicles } from '../../initialData';
+
+const normalizeVehicleData = (vehicle: any) => {
+  if (!vehicle || typeof vehicle !== 'object') return vehicle;
+
+  const sourceVehicle = seedVehicles.find((item: any) => {
+    const idsMatch = String(item.id) === String(vehicle.id);
+    const modelMatches = String(item.model ?? item.vehicleModel) === String(vehicle.vehicleModel ?? vehicle.model ?? '');
+    return idsMatch || modelMatches;
+  });
+
+  if (!sourceVehicle) return vehicle;
+
+  const normalized = { ...vehicle };
+  const numericFields = [
+    'price',
+    'engineCC',
+    'mileage',
+    'powerBHP',
+    'torqueNM',
+    'weightKG',
+    'seatingCapacity',
+    'groundClearanceMM',
+  ];
+
+  numericFields.forEach((field) => {
+    const sourceValue = sourceVehicle[field];
+    const currentValue = normalized[field];
+
+    if (
+      sourceValue !== undefined &&
+      sourceValue !== null &&
+      (currentValue === undefined || currentValue === null || Number(currentValue) === 0)
+    ) {
+      normalized[field] = sourceValue;
+    }
+  });
+
+  return normalized;
+};
 
 // @desc    Get all vehicles
 // @route   GET /api/vehicles
@@ -7,7 +47,7 @@ import Vehicle from '../models/Vehicle';
 export const getVehicles = async (req: Request, res: Response) => {
   try {
     const vehicles = await Vehicle.find({});
-    res.json(vehicles);
+    res.json(vehicles.map((vehicle) => normalizeVehicleData(vehicle.toObject ? vehicle.toObject() : vehicle)));
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }
@@ -18,9 +58,15 @@ export const getVehicles = async (req: Request, res: Response) => {
 // @access  Public
 export const getVehicleById = async (req: Request, res: Response) => {
   try {
-    const vehicle = await Vehicle.findById(req.params.id);
+    const requestedId = req.params.id;
+    const numericId = Number(requestedId);
+
+    const vehicle =
+      (requestedId && !Number.isNaN(numericId) ? await Vehicle.findOne({ id: numericId }) : null) ??
+      (await Vehicle.findById(requestedId));
+
     if (vehicle) {
-      res.json(vehicle);
+      res.json(normalizeVehicleData(vehicle.toObject ? vehicle.toObject() : vehicle));
     } else {
       res.status(404).json({ message: 'Vehicle not found' });
     }

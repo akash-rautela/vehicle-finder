@@ -14,6 +14,7 @@ import Compare from "./pages/Compare.tsx";
 import Contact from "./pages/Contact.tsx";
 import Login from "./pages/Login.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
+import VehicleDetail from "./pages/VehicleDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import TermsOfUse from "./pages/TermsOfUse.tsx";
@@ -34,6 +35,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/browse" element={<Browse />} />
+                  <Route path="/vehicle/:id" element={<VehicleDetail />} />
                   <Route path="/compare" element={<Compare />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
